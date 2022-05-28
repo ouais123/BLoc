@@ -13,24 +13,79 @@ Future<Iterable<Person>> mockGetPersons2(String _) =>
     Future.value(mockPersons2);
 
 void main() {
-  group("test init", () {
-    late PersonBloc personBloc;
-    setUp(() {
-      personBloc = PersonBloc();
-    });
+  group(
+    "test init",
+    () {
+      late PersonBloc personBloc;
+      setUp(() {
+        personBloc = PersonBloc();
+      });
 
-    blocTest<PersonBloc, FetchResult?>(
-      "test init state",
-      build: () => personBloc,
-      verify: (bloc) => bloc.state == null,
-    );
+      blocTest<PersonBloc, FetchResult?>(
+        "test init state",
+        build: () => personBloc,
+        verify: (bloc) => expect(bloc.state, null),
+      );
 
-    blocTest<PersonBloc, FetchResult?>(
-      "mock retrievoing persons from first iterable",
-      build: () => personBloc,
-      act: (bloc) {
-        bloc.add(LoadPersonAction(url: "", personsLoader: mockGetPersons1));
-      },
-    );
-  });
+      blocTest<PersonBloc, FetchResult?>(
+        "mock retrievoing persons from first iterable",
+        build: () => personBloc,
+        act: (bloc) {
+          bloc.add(
+            LoadPersonAction(
+              url: "dummy_url_1",
+              personsLoader: mockGetPersons1,
+            ),
+          );
+
+          bloc.add(
+            LoadPersonAction(
+              url: "dummy_url_1",
+              personsLoader: mockGetPersons1,
+            ),
+          );
+        },
+        expect: () => [
+          FetchResult(
+            persons: mockPersons1,
+            isRetrievedFromCache: false,
+          ),
+          FetchResult(
+            persons: mockPersons1,
+            isRetrievedFromCache: true,
+          ),
+        ],
+      );
+
+      blocTest<PersonBloc, FetchResult?>(
+        "mock retrievoing persons from second iterable",
+        build: () => personBloc,
+        act: (bloc) {
+          bloc.add(
+            LoadPersonAction(
+              url: "dummy_url_2",
+              personsLoader: mockGetPersons2,
+            ),
+          );
+
+          bloc.add(
+            LoadPersonAction(
+              url: "dummy_url_2",
+              personsLoader: mockGetPersons2,
+            ),
+          );
+        },
+        expect: () => [
+          FetchResult(
+            persons: mockPersons2,
+            isRetrievedFromCache: false,
+          ),
+          FetchResult(
+            persons: mockPersons2,
+            isRetrievedFromCache: true,
+          ),
+        ],
+      );
+    },
+  );
 }
