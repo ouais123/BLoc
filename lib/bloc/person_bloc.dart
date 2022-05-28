@@ -31,9 +31,9 @@ class FetchResult {
       );
 }
 
-class BolcPerson extends Bloc<LoadAction, FetchResult?> {
+class PersonBloc extends Bloc<LoadAction, FetchResult?> {
   final Map<String, Iterable<Person>> _cache = {};
-  BolcPerson() : super(null) {
+  PersonBloc() : super(null) {
     on<LoadPersonAction>((event, emit) async {
       final String url = event.url;
       if (_cache.containsKey(url)) {

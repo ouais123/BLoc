@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: BlocProvider(
-        create: (context) => BolcPerson(),
+        create: (context) => PersonBloc(),
         child: const MyHomePage(),
       ),
     );
@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               TextButton(
                 onPressed: () {
-                  context.read<BolcPerson>().add(
+                  context.read<PersonBloc>().add(
                         LoadPersonAction(
                           url: person1Url,
                           personsLoader: getPersons,
@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               TextButton(
                 onPressed: () {
-                  context.read<BolcPerson>().add(
+                  context.read<PersonBloc>().add(
                         LoadPersonAction(
                           url: person2Url,
                           personsLoader: getPersons,
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
-          BlocBuilder<BolcPerson, FetchResult?>(
+          BlocBuilder<PersonBloc, FetchResult?>(
             buildWhen: (previous, current) {
               return previous?.persons != current?.persons;
             },
