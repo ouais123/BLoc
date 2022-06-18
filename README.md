@@ -1,5 +1,3 @@
-# bloc Course
+# Bloc Course
 
 Tutorial Bloc Course
-
-# Getting Started
