@@ -1,4 +1,4 @@
-# bloc Course
+# Bloc Course
 
 A new Flutter project.
 
