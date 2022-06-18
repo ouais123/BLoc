@@ -35,6 +35,7 @@ class PersonBloc extends Bloc<LoadAction, FetchResult?> {
   PersonBloc() : super(null) {
     on<LoadPersonAction>((event, emit) async {
       final String url = event.url;
+
       if (_cache.containsKey(url)) {
         final catchedPersons = _cache[url]!;
         final result = FetchResult(
