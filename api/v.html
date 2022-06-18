@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #nameError {
+            display: none;
+            font-size: 0.8em;
+        }
+
+        #nameError.visible {
+            display: block;
+        }
+
+        #passwordError{
+            display: none;
+            font-size: 0.8em;
+        }
+
+        #passwordError.visible{
+            display: block;
+        }
+
+        input.invalid {
+            border-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="form">
+        
+        <label for="firstname"> First Name* </label>
+        <input type="text" name="firstname" id="firstname" />
+        <span role="alert" id="nameError" aria-hidden="true">
+            Please enter First Name
+        </span>
+
+
+        <!-- <label for="password"> Password* </label>
+        <input type="password" name="password" id="password" />
+        <span role="alert" id="passwordError" aria-hidden="true">
+            Please enter Password
+        </span> -->
+        
+        <button id="submit">Submit</button>
+    </form>
+    <script>
+        const submit = document.getElementById("submit");
+
+        submit.addEventListener("click", validate);
+
+
+        
+        function validate(e) {
+            e.preventDefault();
+
+            const firstNameField = document.getElementById("firstname");
+            //const passwordField = document.getElementById("password");
+
+            console.log(firstNameField.value);
+
+            let valid = true;
+
+            if (!firstNameField.value) {
+                firstNameField.classList.add("invalid");
+                //passwordField.classList.add("invalid");
+
+
+                const nameError = document.getElementById("nameError");
+
+                nameError.innerText = "first name feild is empty you must write first name";
+                nameError.classList.add("visible");
+
+                //const passwordError = document.getElementById("passwordError");
+                //passwordError.classList.add("visible");
+              
+            }
+
+            if(firstNameField.value.length < 3){
+                firstNameField.classList.add("invalid");
+                //passwordField.classList.add("invalid");
+
+
+                const nameError = document.getElementById("nameError");
+
+                nameError.innerText = "first name feild must be at less three chars";
+                nameError.classList.add("visible");
+            }
+            return valid;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:bloc_course/bloc/person.dart';
 import 'package:bloc_course/bloc/person_action.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +31,7 @@ class FetchResult {
 
 class PersonBloc extends Bloc<LoadAction, FetchResult?> {
   final Map<String, Iterable<Person>> _cache = {};
+
   PersonBloc() : super(null) {
     on<LoadPersonAction>((event, emit) async {
       final String url = event.url;
